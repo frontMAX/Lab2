@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700&display=swap');
+
+
+body {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+    font-family: 'Lato', sans-serif;
+    max-width: 1200px;
+}
+
+h1, h2, h3, a, ul, p {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    color: #222;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 5rem;
+}
+
+ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    list-style: none;
+}
+
+ul li {
+    text-transform: uppercase;
+}
+
+.logo-container a {
+    font-weight: 700;
+    font-size: 1.4rem;
+    letter-spacing: 6px;
+}
+
+button {
+    text-transform: uppercase;
+    padding: .5rem 2rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    background-color: #333;
+    color: #fafafa;
+    max-width: 150px;
+}
+
+.login-btn a {
+    color: #fafafa;
+}
+
+.create-blog {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.create-blog form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 550px;
+}
+
+.create-blog-title-container  {
+    width: 100%;
+    max-width: 550px;
+}
+
+.create-blog-title {
+    margin-bottom: 3rem;
+}
+
+label {
+    margin-left: .5rem;
+    color: rgb(99, 99, 99);
+}
+
+.input {
+    margin: .5rem 0 1.5rem 0;
+    padding: .75rem;
+    border-radius: 4px;
+    border: 1.5px solid rgba(51, 51, 51, 0.356);
+}
+
+textarea {
+    width: 100%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    font-size: 16px;
+    resize: none;
+}

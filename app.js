@@ -41,6 +41,18 @@ app.get('/create', (req, res) => {
     res.render('create')
 })
 
+app.post('/create', (req, res) => {
+    const blog = new Blog(req.body);
+
+    blog.save()
+        .then((result) => {
+            res.redirect('create')
+        })
+        .catch((err) => {
+            console.log(err)
+        });
+})
+
 //error route
 app.use((req, res) => {
     res.status(404).render('404');

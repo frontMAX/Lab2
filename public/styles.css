@@ -21,7 +21,7 @@ header {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    margin-bottom: 4rem;
+    margin-bottom: 5rem;
 }
 
 ul {
@@ -36,7 +36,7 @@ ul li {
     text-transform: uppercase;
 }
 
-.logo-container span {
+.logo-container a {
     font-weight: 700;
     font-size: 1.4rem;
     letter-spacing: 6px;
@@ -44,16 +44,60 @@ ul li {
 
 button {
     text-transform: uppercase;
-    width: 6rem;
-    padding: .5rem 0;
-}
-
-.login-btn {
-    background-color: #333;
-    border-radius: 4px;
     padding: .5rem 2rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    background-color: #333;
+    color: #fafafa;
+    max-width: 150px;
 }
 
 .login-btn a {
     color: #fafafa;
+}
+
+.create-blog {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.create-blog form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 550px;
+}
+
+.create-blog-title-container  {
+    width: 100%;
+    max-width: 550px;
+}
+
+.create-blog-title {
+    margin-bottom: 3rem;
+}
+
+label {
+    margin-left: .5rem;
+    color: rgb(99, 99, 99);
+}
+
+.input {
+    margin: .5rem 0 1.5rem 0;
+    padding: .75rem;
+    border-radius: 4px;
+    border: 1.5px solid rgba(51, 51, 51, 0.356);
+}
+
+textarea {
+    width: 100%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    font-size: 16px;
+    resize: none;
 }

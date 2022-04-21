@@ -5,8 +5,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    hello world
+    <%- include('./partials/header.ejs') %>
+
+    <div class="create-blog">
+        <div class="create-blog-title-container">
+            <h1 class="create-blog-title">Create new blogpost</h1>
+        </div>
+        <form action="/create" method="POST">
+            <label for="title">Blog Title</label>
+            <input type="text" name="title" id="title" class="input">
+            <label for="body">Blog Text</label>
+            <textarea name="body" name="body" id="body" class="input"></textarea>
+            <button type="submit" class="create-blog-btn">Submit</button>
+        </form>
+    </div>
+
 </body>
 </html>

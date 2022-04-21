@@ -8,33 +8,16 @@
     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <header>
-        <div class="logo-container">
-            <span>BLOGGIFY</span>
-        </div>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li>My Blogs</li>
-            <li><a href="/create">New Blog</a></li>
-        </ul>
-        <ul>
-            <li>
-                <a href="/register">Register</a></li>
-            </li>
-            <li class="login-btn">
-                <a href="/login">Login</a></li>
-            </li>
-        </ul>
-    </header>
+    <%- include('./partials/header.ejs') %>
     
     <main>
         <h1>BLOGPOSTS</h1>
         <p>View all blogposts below</p>
-    <div class="blogs content">
+    <div class="blogs">
         <% if(blogs.length > 0) { %>
             <% blogs.forEach(blog => { %>
                 <h3 class="title"> <%= blog.title %> </h3>
-                <p class="snippet"> <%= blog.snippet %> </p>
+                <p class="body"> <%= blog.body %> </p>
             <% }) %>
         <% } else { %>
             <p>There are no blogs to display...</p>
