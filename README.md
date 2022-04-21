@@ -4,8 +4,8 @@ I detta projekt kommer vi skapa en `User Based Content` med hjälp av `MongoDB`.
 <br>
 
 ## Beskrivning för att komma igång
-För att komma igång med projektet behöver man först skriva i terminalen `npm init -y`. 
-Sedan installerar man `MongoDB` genom att skriva `npm install mongodb`
+Skriv i terminalen `npm i`
+Sedan `npm start`
 
 
 <br>
