@@ -6,14 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/public/loginpage.css">
+    <link rel="stylesheet" href="/loginpage.css">
 </head>
 <body>
-    <h2>Register<h2>
-        <form action="">
-            <input type="text" name="name">
-            <input type="text" name="email">
-            <input type="password" name="password">
-            <button type="submit">Submit</button>
+    <%- include('./partials/header.ejs') %>
+    <form action="">
+            <h2>Register<h2>
+            <input type="text" name="name" placeholder="Name">
+            <input type="text" name="email" placeholder="Email">
+            <input type="password" name="password" placeholder="Password">
+            <button class="submitBtn" type="submit">Submit</button>
         </form>
     
 </body>

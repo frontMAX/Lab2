@@ -53,6 +53,12 @@ button {
     max-width: 150px;
 }
 
+.login-btn a {
+    color: #fafafa;
+    margin: 0;
+    padding: 0;
+}
+
 .logincontainer {
     display: flex;
     height: 20rem;
@@ -69,7 +75,7 @@ form {
 }
 
 
-form, input, button {
+form, input, .submitBtn {
     display: flex;
     flex-direction: column;
     margin-top: 2rem;
@@ -84,8 +90,8 @@ input {
     border-radius: 10rem;
 }
 
-button {
-    margin-left: 3rem;
+.submitBtn{
+    margin-left: 2.5rem;
 }
 
 
