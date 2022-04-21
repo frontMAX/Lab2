@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700&display=swap');
+
+
+body {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+    font-family: 'Lato', sans-serif;
+    max-width: 1200px;
+}
+
+h1, h2, h3, a, ul, p {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    color: #222;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+ul {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    list-style: none;
+}
+
+ul li {
+    text-transform: uppercase;
+}
+
+button {
+    width: 4rem;
+    padding: 1rem 0;
+}
