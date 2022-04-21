@@ -19,12 +19,15 @@ h1, h2, h3, a, ul, p {
 header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 100%;
+    margin-bottom: 4rem;
 }
 
 ul {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     gap: 2rem;
     list-style: none;
 }
@@ -33,7 +36,24 @@ ul li {
     text-transform: uppercase;
 }
 
+.logo-container span {
+    font-weight: 700;
+    font-size: 1.4rem;
+    letter-spacing: 6px;
+}
+
 button {
-    width: 4rem;
-    padding: 1rem 0;
+    text-transform: uppercase;
+    width: 6rem;
+    padding: .5rem 0;
+}
+
+.login-btn {
+    background-color: #333;
+    border-radius: 4px;
+    padding: .5rem 2rem;
+}
+
+.login-btn a {
+    color: #fafafa;
 }

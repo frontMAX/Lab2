@@ -24,7 +24,21 @@ app.use(morgan('dev'));
 
 //routes
 app.get('/', (req, res) => {
-    res.render('home')
+    Blog.find().sort({createdAt: -1})
+    .then((result) => {
+        res.render('home', {blogs: result})
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+})
+
+app.get('/login', (req, res) => {
+    res.render('login')
+})
+
+app.get('/create', (req, res) => {
+    res.render('create')
 })
 
 //error route

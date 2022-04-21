@@ -9,27 +9,36 @@
 </head>
 <body>
     <header>
-        <div>
-            <span>LOGO</span>
+        <div class="logo-container">
+            <span>BLOGGIFY</span>
         </div>
         <ul>
             <li><a href="/">Home</a></li>
             <li>My Blogs</li>
-            <li><a href="/blogs/create">New Blog</a></li>
+            <li><a href="/create">New Blog</a></li>
         </ul>
         <ul>
-            <button>
-                <a href="./register.ejs">Register</a></li>
-            </button>
-            <button>
-                <a href="./login.ejs">Login</a>
-            </button>
+            <li>
+                <a href="/register">Register</a></li>
+            </li>
+            <li class="login-btn">
+                <a href="/login">Login</a></li>
+            </li>
         </ul>
     </header>
     
     <main>
-        <h1>HOMEPAGE</h1>
-        <p>This is homepage</p>
+        <h1>BLOGPOSTS</h1>
+        <p>View all blogposts below</p>
+    <div class="blogs content">
+        <% if(blogs.length > 0) { %>
+            <% blogs.forEach(blog => { %>
+                <h3 class="title"> <%= blog.title %> </h3>
+                <p class="snippet"> <%= blog.snippet %> </p>
+            <% }) %>
+        <% } else { %>
+            <p>There are no blogs to display...</p>
+        <% } %>
     </div>
     </main>
 </body>
