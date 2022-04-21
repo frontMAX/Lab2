@@ -12,12 +12,14 @@
     
     <main>
         <h1>BLOGPOSTS</h1>
-        <p>View all blogposts below</p>
+        <div class="underscore"></div>
     <div class="blogs">
         <% if(blogs.length > 0) { %>
             <% blogs.forEach(blog => { %>
-                <h3 class="title"> <%= blog.title %> </h3>
-                <p class="body"> <%= blog.body %> </p>
+                <div class="blogs-container">
+                    <h3 class="blogs-title"> <%= blog.title %> </h3>
+                    <p class="blogs-body"> <%= blog.body %> </p>
+                </div>
             <% }) %>
         <% } else { %>
             <p>There are no blogs to display...</p>
