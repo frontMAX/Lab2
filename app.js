@@ -69,6 +69,34 @@ app.delete('/myBlogs/:id', (req, res) => {
         })
 })
 
+app.get('/myBlogs/edit/:id', (req, res) => {
+    const id = req.params.id;
+
+    Blog.findById(id)
+        .then((result) => {
+            res.render('edit', {blog: result})
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+})
+
+app.post('/myBlogs/edit/:id', (req, res) => {
+    const query = {_id:req.params.id};
+
+    let blogpost = {};
+    blogpost.title = req.body.title;
+    blogpost.body = req.body.body;
+
+    Blog.updateOne(query, blogpost)
+        .then((result) => {
+            res.redirect('/myBlogs')
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+})
+
 app.get('/login', (req, res) => {
     res.render('login')
 })

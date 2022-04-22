@@ -107,6 +107,12 @@ button {
     gap: .5rem;
 }
 
+.my-blogs-btn {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
 .edit-btn {
     background-color: transparent;
     color: #333;
@@ -118,11 +124,23 @@ button {
     padding: .5rem 1.5rem;
 }
 
-.delete-btn:hover {
+.update-btn {
+    text-transform: uppercase;
+    padding: .5rem 2rem;
+    border: none;
+    font-size: 1rem;
+    background-color: #333;
+    color: #fafafa;
+    max-width: 70px;
+}
+
+.delete-btn:hover,
+.edit-btn:hover {
     cursor: pointer;
 }
 
-.create-blog {
+.create-blog,
+.edit-blog {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -130,14 +148,16 @@ button {
     width: 100%;
 }
 
-.create-blog form {
+.create-blog form,
+.edit-blog form {
     display: flex;
     flex-direction: column;
     width: 100%;
     max-width: 550px;
 }
 
-.create-blog-title-container  {
+.create-blog-title-container,
+.edit-blog-title-container  {
     width: 100%;
     max-width: 550px;
 }

@@ -10,19 +10,18 @@
 <body>
     <%- include('./partials/header.ejs') %>
 
-    <div class="create-blog">
-        <div class="create-blog-title-container">
-            <h1 class="create-blog-title">Create new blogpost</h1>
+    <div class="edit-blog">
+        <div class="edit-blog-title-container">
+            <h1 class="edit-blog-title">Create new blogpost</h1>
             <div class="underscore"></div>
         </div>
-        <form action="/create" method="POST">
+        <form method="POST" action="/myBlogs/edit/<%=blog._id%>">
             <label for="title">Blog Title</label>
-            <input type="text" name="title" id="title" class="input">
+            <input type="text" name="title" id="title" class="input" value="<%= blog.title %>">
             <label for="body">Blog Text</label>
-            <textarea name="body" name="body" id="body" class="input"></textarea>
-            <button type="submit">Submit</button>
+            <textarea name="body" id="body" class="input"><%= blog.body %></textarea>
+            <button type="submit">UPDATE</button>
         </form>
     </div>
-
 </body>
 </html>
