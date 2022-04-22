@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <%- include('./partials/header.ejs') %>
+    
+    <main>
+        <h1>DETAILED BLOGPOST</h1>
+        <div class="underscore"></div>
+    <div class="blogs">
+        <div class="my-blogs-container">
+            <div class="my-blogs-text">
+                <h3 class="blogs-title"> <%= blog.title %> </h3>
+                <p class="blogs-body"> <%= blog.body %> </p>
+            </div>
+            <div>
+                <a class="delete-btn" data-doc="<%= blog._id %>">DELETE</a>
+            </div>
+        </div>
+    </div>
+    </main>
+
+    <script>
+        const deleteBtn = document.querySelector('a.delete-btn');
+
+        deleteBtn.addEventListener('click', (e) => {
+            const endpoint = `/myBlogs/${deleteBtn.dataset.doc}`;
+
+            fetch(endpoint, {
+                method: 'DELETE'
+            })
+            .then((response) => response.json())
+            .then((data) => window.location.href = data.redirect)
+            .catch((err) => {
+                console.log(err);
+            })
+        })
+    </script>
+</body>
+</html>

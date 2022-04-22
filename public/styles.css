@@ -85,6 +85,43 @@ button {
     box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
 }
 
+.details {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.my-blogs-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: .5rem;
+    padding: 2rem 2rem 2rem 2rem;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+}
+
+.my-blogs-text {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.edit-btn {
+    background-color: transparent;
+    color: #333;
+}
+
+.delete-btn {
+    background-color: rgb(255, 164, 164);
+    color: #333;
+    padding: .5rem 1.5rem;
+}
+
+.delete-btn:hover {
+    cursor: pointer;
+}
+
 .create-blog {
     display: flex;
     flex-direction: column;

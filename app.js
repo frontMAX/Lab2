@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const User = require('./models/user');
 const Blog = require('./models/blog');
+const { render } = require('ejs');
 
 // express app
 const app = express();
@@ -31,6 +32,41 @@ app.get('/', (req, res) => {
     .catch((err) => {
         console.log(err)
     })
+})
+
+app.get('/myBlogs', (req, res) => {
+    Blog.find().sort({createdAt: -1})
+    .then((result) => {
+        res.render('myBlogs', {blogs: result})
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+})
+
+app.get('/myBlogs/:id', (req, res) => {
+    const id = req.params.id;
+    Blog.findById(id)
+        .then((result) => {
+            res.render('details', {blog: result})
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+})
+
+app.delete('/myBlogs/:id', (req, res) => {
+    const id = req.params.id;
+
+    Blog.findByIdAndDelete(id)
+        .then((result) => {
+            res.json({
+                redirect: '/myBlogs',
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+        })
 })
 
 app.get('/login', (req, res) => {
