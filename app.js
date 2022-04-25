@@ -34,6 +34,16 @@ app.get('/', (req, res) => {
     })
 })
 
+app.get('/userProfile', (req, res) => {
+    Blog.find().sort({createdAt: -1})
+    .then((result) => {
+        res.render('userProfile', {blogs: result})
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+})
+
 app.get('/myBlogs', (req, res) => {
     Blog.find().sort({createdAt: -1})
     .then((result) => {
@@ -97,11 +107,30 @@ app.post('/myBlogs/edit/:id', (req, res) => {
         })
 })
 
+// login routes
 app.get('/login', (req, res) => {
     res.render('login')
 })
+
+app.post('/login', (req, res) => {
+
+})
+
+// register routes
 app.get('/register', (req, res) => {
     res.render('register')
+})
+
+app.post('/register', (req, res) => {
+    const user = new User(req.body);
+
+    user.save()
+        .then((result) => {
+            res.redirect('userProfile')
+        })
+        .catch((err) => {
+            console.log(err)
+        });
 })
 
 app.get('/create', (req, res) => {
