@@ -126,13 +126,14 @@ app.post('/register', async (req, res) => {
     if(findUser) {
         return res.status(409).send('User with that email already exists')
     } else {
-        const hashedPassword = await bcrypt.hash(req.body.password, 6)
+        const hashedPassword = await bcrypt.hash(req.body.password, 10)
         const user = new User({
             email: req.body.email,
             password: hashedPassword,
         });
         user.save()
             .then((result) => {
+                console.log(result)
                 res.redirect('userProfile')
             })
             .catch((err) => {
@@ -147,13 +148,18 @@ app.get('/login', (req, res) => {
 })
  
 app.post('/login', async (req, res) => {
-    const foundUser = await User.findOne({email: req.body.email, password: req.body.password});
-    if(!foundUser || !await bcrypt.compare(req.body.password, foundUser.password)) {
-        return res.status(401).send('wrong password, try again...')
-    } else {
-        req.session.id = req.body._id;
-        req.session.email = req.body.email;
-        res.send('succesful login')
+    const findUser = await User.findOne({email: req.body.email})
+    if(findUser == null) {
+        return res.status(400).send('Cannot find user')
+    }
+    try {
+        if(await bcrypt.compare(req.body.password, findUser.password)) {
+            res.redirect('userProfile')
+        } else {
+            res.send('Incorrect username or password')
+        }
+    } catch {
+        res.status(500).send('An error Occured')
     }
 })
 
