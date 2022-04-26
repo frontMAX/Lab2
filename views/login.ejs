@@ -1,26 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/loginpage.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bloggify</title>
+    <link rel="stylesheet" href="/loginpage.css" />
+  </head>
+  <body>
     <%- include('./partials/header.ejs') %>
     <div class="login-container">
-        <div class="login-title-container">
-            <h1 class="login-title">Login</h1>
-            <div class="underscore"></div>
-        </div>
-        <form action="/login" method="POST">
-            <label for="email">Email</label>
-            <input type="email" placeholder="Email" id="email" name="email" required autocomplete="off">
-            <label for="password">Password</label>
-            <input type="password" placeholder="Password" id="password" name="password" required>
-            <button type="submit" class="submit-btn">Login</button>
-        </form>
-        </div>
-</body>
+      <div class="login-title-container">
+        <h1 class="login-title">Login</h1>
+        <div class="underscore"></div>
+      </div>
+      <form action="/login" method="POST">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          placeholder="Email"
+          id="email"
+          name="email"
+          required
+          autocomplete="off"
+        />
+        <label for="password">Password</label>
+        <input
+          type="password"
+          placeholder="Password"
+          id="password"
+          name="password"
+          required
+        />
+        <button type="submit" class="submit-btn">Login</button>
+      </form>
+    </div>
+  </body>
 </html>

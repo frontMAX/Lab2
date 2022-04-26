@@ -1,30 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/styles.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bloggify</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
     <%- include('./partials/headerLoggedIn.ejs') %>
-    
+
     <main>
-        <h1>BLOGPOSTS</h1>
-        <div class="underscore"></div>
-    <div class="blogs">
-        <% if(blogs.length > 0) { %>
-            <% blogs.forEach(blog => { %>
-                <div class="blogs-container">
-                    <h3 class="blogs-title"> <%= blog.title %> </h3>
-                    <p class="blogs-body"> <%= blog.body %> </p>
-                </div>
-            <% }) %>
-        <% } else { %>
-            <p>There are no blogs to display...</p>
+      <h1>BLOGPOSTS</h1>
+      <div class="underscore"></div>
+      <div class="blogs">
+        <% if(blogs.length > 0) { %> <% blogs.forEach(blog => { %>
+        <div class="blogs-container">
+          <h3 class="blogs-title"><%= blog.title %></h3>
+          <p class="blogs-body"><%= blog.body %></p>
+        </div>
+        <% }) %> <% } else { %>
+        <p>There are no blogs to display...</p>
         <% } %>
-    </div>
+      </div>
     </main>
-</body>
+  </body>
 </html>
