@@ -63,13 +63,12 @@ app.get('/userProfile/:id', (req, res) => {
     })
 })
 
-app.get('/myBlogs/:id', (req, res) => {
+app.get('/myBlogs/:id', async (req, res) => {
     const userId = req.params.id;
 
-    User.findById(userId)
+    await User.findById(userId)
     .then((userResult) => {
-        console.log(userResult)
-        Blog.find().sort({createdAt: -1})
+        Blog.find({userId: req.session.id})
         .then((result) => {
             res.render(`myBlogs`, {blogs: result, user: userResult})
         })
@@ -149,25 +148,20 @@ app.get('/create/:id', (req, res) => {
         })
 })
 
-app.post('/create', async (req, res) => {
-    let findUser = await User.findOne({id: req.params._id});
-    if(findUser) {
+app.post('/create', (req, res) => {
         const blog = new Blog({
-            userId: findUser._id,
+            userId: req.session.id,
             title: req.body.title,
             body: req.body.body,
         });
         blog.save()
             .then((result) => {
                 console.log(result)
-                res.redirect(`userProfile/${findUser._id}`)
+                res.redirect(`userProfile/${req.session.id}`)
             })
             .catch((err) => {
                 console.log(err)
         });
-    } else {
-        console.log('error')
-    }
 })
 
 // register routes
@@ -209,6 +203,7 @@ app.post('/login', async (req, res) => {
     try {
         if(await bcrypt.compare(req.body.password, findUser.password)) {
             req.session.id = findUser._id;
+            req.session.email = findUser.email;
             res.redirect(`userProfile/${findUser._id}`)
         } else {
             res.send('Incorrect username or password')
