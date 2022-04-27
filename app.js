@@ -26,7 +26,7 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true })); 
 app.use(morgan('dev'));
 app.use(cookieSession({
-    maxAge: 1000 * 100,
+    maxAge: 24 * 60 * 60 * 1000,
     secret: 'aVeryS3cr3tK3y',
     httpOnly: true,
     secure: false,
@@ -44,10 +44,10 @@ app.get('/', (req, res) => {
 })
 
 // user routes
-app.get('/userProfile/:id', (req, res) => {
+app.get('/userProfile/:id', async (req, res) => {
     const userId = req.params.id;
 
-    User.findById(userId)
+    await User.findById(userId)
     .then((userResult) => {
         Blog.find().sort({createdAt: -1})
         .then((result) => {
@@ -82,18 +82,19 @@ app.get('/myBlogs/:id', async (req, res) => {
     })
 })
 
-app.get('/myBlogs/:id', (req, res) => {
+app.get('/myBlogs/:id/:id', async (req, res) => {
     const id = req.params.id;
-    Blog.findById(id)
+
+        await Blog.findById(id)
         .then((result) => {
-            res.render('details', {blog: result})
+            res.render('details', {blog: result, user: req.session.id})
         })
         .catch((err) => {
             console.log(err);
-        })
+     })
 })
 
-app.delete('/myBlogs/:id', (req, res) => {
+app.delete('/myBlogs/:id/:id', (req, res) => {
     const id = req.params.id;
 
     Blog.findByIdAndDelete(id)
@@ -104,7 +105,7 @@ app.delete('/myBlogs/:id', (req, res) => {
         })
         .catch((err) => {
             console.log(err);
-        })
+    })
 })
 
 app.get('/myBlogs/edit/:id', (req, res) => {

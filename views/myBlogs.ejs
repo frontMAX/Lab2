@@ -16,7 +16,7 @@
       <div class="blogs">
         <% if(blogs.length > 0) { %> <% blogs.forEach(blog => { %>
         <div class="blogs-container">
-          <a class="details" href="/myBlogs/<%=blog._id%>">
+          <a class="details" href="/myBlogs/<%=user._id%>/<%=blog._id%>">
             <h3 class="blogs-title"><%= blog.title %></h3>
             <p class="blogs-body"><%= blog.body %></p>
           </a>
