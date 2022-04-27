@@ -26,7 +26,7 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true })); 
 app.use(morgan('dev'));
 app.use(cookieSession({
-    maxAge: 1000 * 10,
+    maxAge: 1000 * 100,
     secret: 'aVeryS3cr3tK3y',
     httpOnly: true,
     secure: false,
@@ -43,23 +43,43 @@ app.get('/', (req, res) => {
     })
 })
 
-app.get('/userProfile', (req, res) => {
-    Blog.find().sort({createdAt: -1})
-    .then((result) => {
-        res.render('userProfile', {blogs: result})
+// user routes
+app.get('/userProfile/:id', (req, res) => {
+    const userId = req.params.id;
+
+    User.findById(userId)
+    .then((userResult) => {
+        Blog.find().sort({createdAt: -1})
+        .then((result) => {
+            res.render('userProfile', {blogs: result, user: userResult})
+        })
+        .catch((err) => {
+            console.log(err)
+        })
     })
     .catch((err) => {
         console.log(err)
+        res.render('404')
     })
 })
 
-app.get('/myBlogs', (req, res) => {
-    Blog.find().sort({createdAt: -1})
-    .then((result) => {
-        res.render('myBlogs', {blogs: result})
+app.get('/myBlogs/:id', (req, res) => {
+    const userId = req.params.id;
+
+    User.findById(userId)
+    .then((userResult) => {
+        console.log(userResult)
+        Blog.find().sort({createdAt: -1})
+        .then((result) => {
+            res.render(`myBlogs`, {blogs: result, user: userResult})
+        })
+        .catch((err) => {
+            console.log(err)
+        })
     })
     .catch((err) => {
         console.log(err)
+        res.render('404')
     })
 })
 
@@ -116,6 +136,40 @@ app.post('/myBlogs/edit/:id', (req, res) => {
         })
 })
 
+// create routes
+app.get('/create/:id', (req, res) => {
+    const userId = req.params.id;
+
+    User.findById(userId)
+        .then((userResult) => {
+            res.render('create', {user: userResult})
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+})
+
+app.post('/create', async (req, res) => {
+    let findUser = await User.findOne({id: req.params._id});
+    if(findUser) {
+        const blog = new Blog({
+            userId: findUser._id,
+            title: req.body.title,
+            body: req.body.body,
+        });
+        blog.save()
+            .then((result) => {
+                console.log(result)
+                res.redirect(`userProfile/${findUser._id}`)
+            })
+            .catch((err) => {
+                console.log(err)
+        });
+    } else {
+        console.log('error')
+    }
+})
+
 // register routes
 app.get('/register', (req, res) => {
     res.render('register')
@@ -134,7 +188,7 @@ app.post('/register', async (req, res) => {
         user.save()
             .then((result) => {
                 console.log(result)
-                res.redirect('userProfile')
+                res.redirect(`userProfile/${result._id}`)
             })
             .catch((err) => {
                 console.log(err)
@@ -154,30 +208,14 @@ app.post('/login', async (req, res) => {
     }
     try {
         if(await bcrypt.compare(req.body.password, findUser.password)) {
-            res.redirect('userProfile')
+            req.session.id = findUser._id;
+            res.redirect(`userProfile/${findUser._id}`)
         } else {
             res.send('Incorrect username or password')
         }
     } catch {
         res.status(500).send('An error Occured')
     }
-})
-
-// create routes
-app.get('/create', (req, res) => {
-    res.render('create')
-})
-
-app.post('/create', (req, res) => {
-    const blog = new Blog(req.body);
-
-    blog.save()
-        .then((result) => {
-            res.redirect('create')
-        })
-        .catch((err) => {
-            console.log(err)
-        });
 })
 
 //error route
