@@ -100,7 +100,7 @@ app.delete('/myBlogs/:id/:id', (req, res) => {
     Blog.findByIdAndDelete(id)
         .then((result) => {
             res.json({
-                redirect: '/myBlogs',
+                redirect: `/myBlogs/${req.session.id}`,
             });
         })
         .catch((err) => {
@@ -108,28 +108,29 @@ app.delete('/myBlogs/:id/:id', (req, res) => {
     })
 })
 
-app.get('/myBlogs/edit/:id', (req, res) => {
+app.get('/myBlogs/edit/:id/:id', (req, res) => {
     const id = req.params.id;
 
     Blog.findById(id)
         .then((result) => {
-            res.render('edit', {blog: result})
+            res.render('edit', {blog: result, user: req.session.id})
         })
         .catch((err) => {
             console.log(err);
         })
 })
 
-app.post('/myBlogs/edit/:id', (req, res) => {
+app.post('/myBlogs/edit/:id/:id', (req, res) => {
     const query = {_id:req.params.id};
 
     let blogpost = {};
+    blogpost.userId = req.session.id;
     blogpost.title = req.body.title;
     blogpost.body = req.body.body;
 
     Blog.updateOne(query, blogpost)
         .then((result) => {
-            res.redirect('/myBlogs')
+            res.redirect(`/myBlogs/${req.session.id}`)
         })
         .catch((err) => {
             console.log(err);

@@ -34,8 +34,8 @@
             <p class="blogs-body"><%= blog.body %></p>
           </div>
           <div class="my-blogs-btn">
-            <a href="/myBlogs/edit/<%=blog._id%>">EDIT</a>
-            <a class="delete-btn" data-doc="<%= blog._id %>">DELETE</a>
+            <a href="/myBlogs/edit/<%=user%>/<%=blog._id%>">EDIT</a>
+            <a class="delete-btn" data-doc="<%= user %>/<%= blog._id %>">DELETE</a>
           </div>
         </div>
       </div>
