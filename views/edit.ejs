@@ -8,14 +8,28 @@
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <%- include('./partials/headerLoggedIn.ejs') %>
+    <header>
+      <div class="logo-container">
+          <a href="#">BLOGGIFY</a>
+      </div>
+      <ul>
+          <li><a href="/userProfile/<%=user%>">Home</a></li>
+          <li><a href="/myBlogs/<%=user%>">My Blogs</a></li>
+          <li><a href="/create/<%=user%>">New Blog</a></li>
+      </ul>
+      <ul>
+          <button class="login-btn">
+              <a href="/login">Logout</a></li>
+          </button>
+      </ul>
+  </header>
 
     <div class="edit-blog">
       <div class="edit-blog-title-container">
         <h1 class="edit-blog-title">Create new blogpost</h1>
         <div class="underscore"></div>
       </div>
-      <form method="POST" action="/myBlogs/edit/<%=blog._id%>">
+      <form method="POST" action="/myBlogs/edit/<&=user&>/<%=blog._id%>">
         <label for="title">Blog Title</label>
         <input
           type="text"
@@ -25,9 +39,7 @@
           value="<%= blog.title %>"
         />
         <label for="body">Blog Text</label>
-        <textarea name="body" id="body" class="input">
-<%= blog.body %></textarea
-        >
+        <textarea name="body" id="body" class="input"><%= blog.body %></textarea>
         <button type="submit">UPDATE</button>
       </form>
     </div>

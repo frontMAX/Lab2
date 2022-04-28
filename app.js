@@ -26,7 +26,7 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true })); 
 app.use(morgan('dev'));
 app.use(cookieSession({
-    maxAge: 1000 * 10,
+    maxAge: 24 * 60 * 60 * 1000,
     secret: 'aVeryS3cr3tK3y',
     httpOnly: true,
     secure: false,
@@ -43,77 +43,127 @@ app.get('/', (req, res) => {
     })
 })
 
-app.get('/userProfile', (req, res) => {
-    Blog.find().sort({createdAt: -1})
-    .then((result) => {
-        res.render('userProfile', {blogs: result})
-    })
-    .catch((err) => {
-        console.log(err)
-    })
-})
+// user routes
+app.get('/userProfile/:id', async (req, res) => {
+    const userId = req.params.id;
 
-app.get('/myBlogs', (req, res) => {
-    Blog.find().sort({createdAt: -1})
-    .then((result) => {
-        res.render('myBlogs', {blogs: result})
-    })
-    .catch((err) => {
-        console.log(err)
-    })
-})
-
-app.get('/myBlogs/:id', (req, res) => {
-    const id = req.params.id;
-    Blog.findById(id)
+    await User.findById(userId)
+    .then((userResult) => {
+        Blog.find().sort({createdAt: -1})
         .then((result) => {
-            res.render('details', {blog: result})
+            res.render('userProfile', {blogs: result, user: userResult})
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    })
+    .catch((err) => {
+        console.log(err)
+        res.render('404')
+    })
+})
+
+app.get('/myBlogs/:id', async (req, res) => {
+    const userId = req.params.id;
+
+    await User.findById(userId)
+    .then((userResult) => {
+        Blog.find({userId: req.session.id})
+        .then((result) => {
+            res.render(`myBlogs`, {blogs: result, user: userResult})
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    })
+    .catch((err) => {
+        console.log(err)
+        res.render('404')
+    })
+})
+
+app.get('/myBlogs/:id/:id', async (req, res) => {
+    const id = req.params.id;
+
+        await Blog.findById(id)
+        .then((result) => {
+            res.render('details', {blog: result, user: req.session.id})
         })
         .catch((err) => {
             console.log(err);
-        })
+     })
 })
 
-app.delete('/myBlogs/:id', (req, res) => {
+app.delete('/myBlogs/:id/:id', (req, res) => {
     const id = req.params.id;
 
     Blog.findByIdAndDelete(id)
         .then((result) => {
             res.json({
-                redirect: '/myBlogs',
+                redirect: `/myBlogs/${req.session.id}`,
             });
         })
         .catch((err) => {
             console.log(err);
-        })
+    })
 })
 
-app.get('/myBlogs/edit/:id', (req, res) => {
+app.get('/myBlogs/edit/:id/:id', (req, res) => {
     const id = req.params.id;
 
     Blog.findById(id)
         .then((result) => {
-            res.render('edit', {blog: result})
+            res.render('edit', {blog: result, user: req.session.id})
         })
         .catch((err) => {
             console.log(err);
         })
 })
 
-app.post('/myBlogs/edit/:id', (req, res) => {
+app.post('/myBlogs/edit/:id/:id', (req, res) => {
     const query = {_id:req.params.id};
 
     let blogpost = {};
+    blogpost.userId = req.session.id;
     blogpost.title = req.body.title;
     blogpost.body = req.body.body;
 
     Blog.updateOne(query, blogpost)
         .then((result) => {
-            res.redirect('/myBlogs')
+            res.redirect(`/myBlogs/${req.session.id}`)
         })
         .catch((err) => {
             console.log(err);
         })
+})
+
+// create routes
+app.get('/create/:id', (req, res) => {
+    const userId = req.params.id;
+
+    User.findById(userId)
+        .then((userResult) => {
+            res.render('create', {user: userResult})
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+})
+
+app.post('/create', (req, res) => {
+        const blog = new Blog({
+            userId: req.session.id,
+            title: req.body.title,
+            body: req.body.body,
+        });
+        blog.save()
+            .then((result) => {
+                console.log(result)
+                res.redirect(`userProfile/${req.session.id}`)
+            })
+            .catch((err) => {
+                console.log(err)
+        });
 })
 
 // register routes
@@ -134,7 +184,7 @@ app.post('/register', async (req, res) => {
         user.save()
             .then((result) => {
                 console.log(result)
-                res.redirect('userProfile')
+                res.redirect(`userProfile/${result._id}`)
             })
             .catch((err) => {
                 console.log(err)
@@ -154,30 +204,15 @@ app.post('/login', async (req, res) => {
     }
     try {
         if(await bcrypt.compare(req.body.password, findUser.password)) {
-            res.redirect('userProfile')
+            req.session.id = findUser._id;
+            req.session.email = findUser.email;
+            res.redirect(`userProfile/${findUser._id}`)
         } else {
             res.send('Incorrect username or password')
         }
     } catch {
         res.status(500).send('An error Occured')
     }
-})
-
-// create routes
-app.get('/create', (req, res) => {
-    res.render('create')
-})
-
-app.post('/create', (req, res) => {
-    const blog = new Blog(req.body);
-
-    blog.save()
-        .then((result) => {
-            res.redirect('create')
-        })
-        .catch((err) => {
-            console.log(err)
-        });
 })
 
 //error route

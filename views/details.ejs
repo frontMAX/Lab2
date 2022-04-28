@@ -8,7 +8,21 @@
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <%- include('./partials/header.ejs') %>
+    <header>
+      <div class="logo-container">
+          <a href="#">BLOGGIFY</a>
+      </div>
+      <ul>
+          <li><a href="/userProfile/<%=user%>">Home</a></li>
+          <li><a href="/myBlogs/<%=user%>">My Blogs</a></li>
+          <li><a href="/create/<%=user%>">New Blog</a></li>
+      </ul>
+      <ul>
+          <button class="login-btn">
+              <a href="/login">Logout</a></li>
+          </button>
+      </ul>
+  </header>
 
     <main>
       <h1>DETAILED BLOGPOST</h1>
@@ -20,8 +34,8 @@
             <p class="blogs-body"><%= blog.body %></p>
           </div>
           <div class="my-blogs-btn">
-            <a href="/myBlogs/edit/<%=blog._id%>">EDIT</a>
-            <a class="delete-btn" data-doc="<%= blog._id %>">DELETE</a>
+            <a href="/myBlogs/edit/<%=user%>/<%=blog._id%>">EDIT</a>
+            <a class="delete-btn" data-doc="<%= user %>/<%= blog._id %>">DELETE</a>
           </div>
         </div>
       </div>
