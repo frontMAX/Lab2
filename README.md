@@ -5,8 +5,8 @@ I detta projekt kommer vi skapa en `User Based Content` med hjälp av `MongoDB`.
 
 ## Beskrivning för att komma igång
 Skriv i terminalen `npm i`
-Sedan `npm start`
-Öppna upp din browser och skriv in http://localhost:3000
+Sedan `npm start`.
+Öppna därefter upp din browser och skriv in http://localhost:3000
 
 
 
